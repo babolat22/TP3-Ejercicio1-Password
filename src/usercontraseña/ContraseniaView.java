@@ -33,9 +33,10 @@ public class ContraseniaView extends javax.swing.JFrame {
         psw = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("INICIO DE SESION");
+        setTitle("Credenciales");
         setLocationByPlatform(true);
         setPreferredSize(new java.awt.Dimension(500, 400));
+        setResizable(false);
 
         label1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         label1.setText("Inicio de sesion");
@@ -43,7 +44,9 @@ public class ContraseniaView extends javax.swing.JFrame {
         pnlDatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese las credenciales"));
 
         btnVerificar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnVerificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-cliente-windows-48.png"))); // NOI18N
         btnVerificar.setText("Verificar");
+        btnVerificar.setIconTextGap(15);
         btnVerificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerificarActionPerformed(evt);
@@ -88,9 +91,9 @@ public class ContraseniaView extends javax.swing.JFrame {
                 .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(psw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(btnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(24, 24, 24))
         );
 
         jDesktopPane1.setLayer(label1, javax.swing.JLayeredPane.DEFAULT_LAYER);
