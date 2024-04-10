@@ -2,6 +2,8 @@ package usercontraseña;
 
 import java.awt.Button;
 import java.awt.Label;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class ContraseniaView extends javax.swing.JFrame {
@@ -31,6 +33,8 @@ public class ContraseniaView extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
         psw = new javax.swing.JPasswordField();
+        btnOcultarpsw = new javax.swing.JButton();
+        btnMostrarpsw = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Credenciales");
@@ -43,15 +47,19 @@ public class ContraseniaView extends javax.swing.JFrame {
 
         pnlDatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese las credenciales"));
 
-        btnVerificar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnVerificar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnVerificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-cliente-windows-48.png"))); // NOI18N
         btnVerificar.setText("Verificar");
+        btnVerificar.setToolTipText("alumno@ulp.edu.ar");
         btnVerificar.setIconTextGap(15);
         btnVerificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerificarActionPerformed(evt);
             }
         });
+
+        tUser.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        tUser.setToolTipText("");
 
         label2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         label2.setText("Usuario:");
@@ -60,6 +68,12 @@ public class ContraseniaView extends javax.swing.JFrame {
         label3.setText("Contraseña:");
 
         psw.setText("jPasswordField1");
+        psw.setToolTipText("debe contener 8 digitos");
+        psw.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pswFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);
         pnlDatos.setLayout(pnlDatosLayout);
@@ -77,8 +91,8 @@ public class ContraseniaView extends javax.swing.JFrame {
                 .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addComponent(btnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         pnlDatosLayout.setVerticalGroup(
             pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,9 +105,9 @@ public class ContraseniaView extends javax.swing.JFrame {
                 .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(psw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(btnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(27, 27, 27)
+                .addComponent(btnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         jDesktopPane1.setLayer(label1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -120,37 +134,89 @@ public class ContraseniaView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnOcultarpsw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons7-ocultar-contraseña-50.png"))); // NOI18N
+        btnOcultarpsw.setText("Ocultar");
+        btnOcultarpsw.setToolTipText("");
+        btnOcultarpsw.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnOcultarpsw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOcultarpswActionPerformed(evt);
+            }
+        });
+
+        btnMostrarpsw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons7-mostrar-contraseña-50.png"))); // NOI18N
+        btnMostrarpsw.setText("Ver");
+        btnMostrarpsw.setToolTipText("");
+        btnMostrarpsw.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnMostrarpsw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarpswActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(btnOcultarpsw, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnMostrarpsw, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 51, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOcultarpsw)
+                    .addComponent(btnMostrarpsw, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(524, 371));
+        setSize(new java.awt.Dimension(524, 400));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-        if (tUser.getText().equals("alumno@ulp.edu.ar") || psw.equals("123456")){
-            
-         JOptionPane.showMessageDialog(this,"Bienvenido al Sistema !!!!");
-          tUser.setText("");
-          psw.setText("*****"); 
-     
-        } else 
-       {
-          JOptionPane.showMessageDialog(null,"Usuario y/o contraseña invalidos.");
-          tUser.setText("");
-          psw.setText("*****");
-      }
+        if (esUnEmailValido(tUser.getText())) {
+            if (tUser.getText().equals("alumno@ulp.edu.ar") || psw.equals("123456")){
+                JOptionPane.showMessageDialog(this,"Bienvenido al Sistema !!!!");
+                tUser.setText("");
+                psw.setText("*****"); 
+            }else {
+                JOptionPane.showMessageDialog(null,"Email VALIDO, pero las credenciales NO COINCIDEN.");
+                tUser.setText("");
+                psw.setText("*****");
+            }
+        }else JOptionPane.showMessageDialog(this,"El email ingresado es INVÀLIDO.");     
     }//GEN-LAST:event_btnVerificarActionPerformed
+
+    public static boolean esUnEmailValido(String email)  {
+    // Patrón para validar el email
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+ 
+        // El email a validar
+        Matcher mather = pattern.matcher(email);
+        return mather.find();
+    }
+    
+    private void pswFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pswFocusGained
+        psw.setText("");
+    }//GEN-LAST:event_pswFocusGained
+
+    private void btnOcultarpswActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcultarpswActionPerformed
+        psw.setEchoChar('*');
+    }//GEN-LAST:event_btnOcultarpswActionPerformed
+
+    private void btnMostrarpswActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarpswActionPerformed
+        psw.setEchoChar((char)0);  // con el 0 indicas que quieres ver el JPasswordField como si fuera un JTextField
+    }//GEN-LAST:event_btnMostrarpswActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +254,8 @@ public class ContraseniaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMostrarpsw;
+    private javax.swing.JButton btnOcultarpsw;
     private javax.swing.JButton btnVerificar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private java.awt.Label label1;
